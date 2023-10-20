@@ -100,11 +100,14 @@ sudo tar xf wordpress.tar.gz
 4. Configure o WordPress:
 
 - Mude de para o diretorio _wordpress_ e renomeie o arquivo de configuração do WordPress:
+
 ```
 cd wordpress
 mv wp-config-sample.php wp-config.php
 ```
+
 5. Abra o arquivo **wp-config.php** e substitua as linhas
+
 ```
 sudo vi wp-config.php
 ------------
@@ -117,12 +120,58 @@ define( 'DB_USER', 'wordpressuser' );
 /** Database password */
 define( 'DB_PASSWORD', 'securepassword' );
 ```
+
 ![config-db](./images/db-config.png)
 
 6. Defina as Permissões de Arquivo:
+
 ```
 sudo chown -R apache:apache /var/www/html/wordpress
 sudo chmod -R 755 /var/www/html/wordpress
 ```
 
 ### Configurar o WordPress para Usar o Compartilhamento NFS:
+
+- Vamos utilizar a mesma pasta que criamos no [desafio anterior](https://github.com/LaraCosta66/compass-linux-d02):
+
+1. No arquivo **wp-config.php**, adicione a linha:
+
+```
+define('WP_CONTENT_URL', 'http://VM02_IP/nfs-mount/wp-content');
+define('WP_CONTENT_DIR', '/caminho/para/os/arquivos/estaticos');
+```
+
+![content dir](./images/nfs-mount.png)
+
+## Configurar Apache para host do WordPress
+
+- Vamos criar arquivo host virtual **Apache** para hospedar o **Wordpress**
+
+```
+sudo vi /etc/httpd/conf.d/wordpress.conf
+```
+
+- Adicione nesse arquivo:
+
+```
+<VirtualHost *:80>
+ServerAdmin root@localhost
+ServerName wordpress.example.com
+DocumentRoot /var/www/html/wordpress
+<Directory "/var/www/html/wordpress">
+Options Indexes FollowSymLinks
+AllowOverride all
+Require all granted
+</Directory>
+ErrorLog /var/log/httpd/wordpress_error.log
+CustomLog /var/log/httpd/wordpress_access.log common
+</VirtualHost>
+```
+
+_Salve e saia :wq_
+
+- Reinicie o servidor:
+
+```
+sudo systemctl restart httpd
+```
