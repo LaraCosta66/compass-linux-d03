@@ -1,3 +1,8 @@
+## Desafios anteriores
+[Desafio 01](https://github.com/LaraCosta66/compass-linux-d01)
+
+[Desafio 02](https://github.com/LaraCosta66/compass-linux-d02)
+
 ## DESAFIO 3
 
 ## Instalar LAMP Stack
