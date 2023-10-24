@@ -1,4 +1,4 @@
-# Desafio 03 - Trilha DevSecOps na CompassUOL - Sprint 1
+## Desafio 03 - Trilha DevSecOps na CompassUOL - Sprint 1
 ![Compass-logo](./images/compass-uol.png)
 ## Desafios anteriores
 [Desafio 01](https://github.com/LaraCosta66/compass-linux-d01)
